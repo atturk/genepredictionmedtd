@@ -125,6 +125,16 @@ score_kozak = 2
 score_gc = 1
 score_codon = 1
 
+#VARIABILI POSIZIONALI
+inizio_tatabox = -40
+fine_tatabox = -20
+inizio_inr = -10
+fine_inr = 10
+inizio_cpg = -3000
+inizio_kozak = -10
+fine_kozak = 10
+
+
 #inizio analisi
 for orf in orf_iter(str(seq)):
   # FILTRAGGIO PRELIMINARE
@@ -136,21 +146,21 @@ for orf in orf_iter(str(seq)):
     #inizializzo score
     score = 0
     #il tatabox si trova tra -35 e -25 prima dell'ATG iniziale
-    subseq = str(seq[orf.span()[0]-40:orf.span()[0]-20])
+    subseq = str(seq[orf.span()[0]+inizio_tatabox:orf.span()[0]+fine_tatabox])
     if tatabox(subseq):
         score = score + score_tatabox
-    subseq = str(seq[orf.span()[0]-10:orf.span()[0]+10])
+    subseq = str(seq[orf.span()[0]+inizio_inr:orf.span()[0]+fine_inr])
     #l'inr si trova tra -10 e +10 attorno all'ATG iniziale
     if inr(subseq):
         score = score + score_inr
     #solo se la sequenza inizia dopo 3000 basi
     if orf.span()[0] > 3000:
-        subseq = str(seq[orf.span()[0]-3000:orf.span()[0]])
+        subseq = str(seq[orf.span()[0]+inizio_cpg:orf.span()[0]])
         #controllo se nelle 3000 basi precedenti c'è un'alta frequenza di CpG
         if cpg(subseq):
             score = score + score_cpg
     #il kozak si trova tra -10 e +10 attorno all'ATG iniziale
-    subseq = str(seq[orf.span()[0]-10:orf.span()[0]+10])
+    subseq = str(seq[orf.span()[0]+inizio_kozak:orf.span()[0]+fine_kozak])
     if kozak(subseq):
         score = score + score_kozak
     #i sensori di contenuto si applicano alla sequenza da ATG a stop
