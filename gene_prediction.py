@@ -177,7 +177,9 @@ for orf in orf_iter(str(seq)):
         results.loc[len(results)-1, 'Coding'] = True
         #PARTE VERIFICA BLAST
         print(f'Controllo se la sequenza in posizione {orf.span()} è verificata su BLAST')
-        results.loc[len(results)-1, 'BLAST'] = verifica_sequenza_blast(subseq)
+        if verifica_sequenza_blast(subseq):
+            print(f'La sequenza in posizione {orf.span()} è verificata su BLAST')
+            results.loc[len(results)-1, 'BLAST'] = True
 
 #filtra solo le ORF codificanti
 cod = results[results['Coding'] == True]
