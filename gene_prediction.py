@@ -125,6 +125,9 @@ score_kozak = 2
 score_gc = 1
 score_codon = 1
 
+#SCORE SOGLIA
+soglia = 5
+
 #VARIABILI POSIZIONALI
 inizio_tatabox = -40
 fine_tatabox = -20
@@ -170,7 +173,7 @@ for orf in orf_iter(str(seq)):
     subseq = str(seq[orf.span()[0]:orf.span()[1]])
     if codon_freq(subseq):
         score = score + score_codon
-    if score >= 5:
+    if score >= soglia:
         results.loc[len(results)-1, 'Coding'] = True
         #PARTE VERIFICA BLAST
         print(f'Controllo se la sequenza in posizione {orf.span()} è verificata su BLAST')
