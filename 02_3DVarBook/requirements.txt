@@ -1,0 +1,15 @@
+#widget
+ipywidgets
+
+#funzionali
+ipython-genutils
+biopython
+pandas
+Requests
+unipressed
+
+#visualizzazione
+py3Dmol
+nglview
+
+
